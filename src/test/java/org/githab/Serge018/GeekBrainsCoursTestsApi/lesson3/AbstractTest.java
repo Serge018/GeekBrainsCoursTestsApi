@@ -14,8 +14,9 @@ public abstract class AbstractTest
 {
     static Properties prop = new Properties();
     private static InputStream configFile;
-    private static String apiKey;
     private static String baseUrl;
+    private static String classifyCuisineURLPath;
+    private static String apiKey;
 
     @BeforeAll
     static void setUp()
@@ -31,6 +32,7 @@ public abstract class AbstractTest
 
         apiKey = prop.getProperty("apiKey");
         baseUrl = prop.getProperty("base_url");
+        classifyCuisineURLPath = prop.getProperty("classify_cuisine_url_path");
     }
 
     public static String getApiKey()
@@ -41,5 +43,10 @@ public abstract class AbstractTest
     public static String getBaseUrl()
     {
         return baseUrl;
+    }
+
+    public static String getClassifyCuisineURLPath()
+    {
+        return classifyCuisineURLPath;
     }
 }

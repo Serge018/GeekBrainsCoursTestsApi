@@ -1,5 +1,6 @@
 package org.githab.Serge018.GeekBrainsCoursTestsApi.lesson3;
 
+import org.githab.Serge018.GeekBrainsCoursTestsApi.lesson4.dto.ClassifyCuisineResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static io.restassured.RestAssured.given;
@@ -8,32 +9,42 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import java.io.IOException;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.*;
 
-public class ClassifyCuisineTest  extends AbstractTest
+public class ClassifyCuisineTest  extends AbstractTestClassifyCuisine
 {
 
     @Test
-    @DisplayName("Получение принадлежности рецепта к национальной кухни при запросе по его нименованию")
+    @DisplayName("Тест получения данных о принадлежности рецепта к определённой национальной кухни по его нименованию")
     void getRecipeBelongNationalCuisineByRecipeNameTest() throws IOException
     {
-        Response response = given()
-            .contentType("application/x-www-form-urlencoded")
+        given()
+            .spec(getRequestSpecification())
             .formParam("title", "Thai-Style Mussels")
-            .formParam("ingredientList", "mussels")
-            .queryParam("apiKey", getApiKey())
-            .queryParam("language", "en")
             .when()
             .post(getBaseUrl() + getClassifyCuisineURLPath())
             .then()
-            .statusCode(200)
+            .spec(getResponseSpecification());
+    }
+
+    @Test
+    @DisplayName("Тест получения данных о принадлежности рецепта к определённой национальной кухни по его нименованию и ингридиенту")
+    void getRecipeBelongNationalCuisineByRecipeNameAndIbnTest() throws IOException
+    {
+        // Проверка осуществляется с использованеим dto класса
+        ClassifyCuisineResponse response = given()
+            .spec(getRequestSpecification())
+            .formParam("title", "Thai-Style Mussels")
+            .formParam("ingredientList", "mussels")
+            .when()
+            .post(getBaseUrl() + getClassifyCuisineURLPath())
+            .then()
             .extract()
-            .response();
+            .response()
+            .body()
+            .as(ClassifyCuisineResponse.class);
 
-        String responseBody = response.getBody().asString();
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode node = mapper.readTree(responseBody);
-
-        String cuisine = node.get("cuisine").asText();
-        Assertions.assertEquals("Thai", cuisine);
+        assertThat(response.getCuisine(), containsString("Asian"));
     }
 }

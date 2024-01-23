@@ -32,4 +32,33 @@ public class ConfigUtils
         return prop.getProperty("url");
     }
 
+
+    public int getProductIdToBeDeleted() throws IOException, NumberFormatException
+    {
+        prop.load(configFile);
+        String productIdToBeRead = prop.getProperty("productIdToBeDeleted");
+        int result = Integer.parseInt(productIdToBeRead);
+
+        return result;
+    }
+
+
+    public int getProductIdToBeRead() throws IOException, NumberFormatException
+    {
+        prop.load(configFile);
+        String productIdToBeRead = prop.getProperty("productIdToBeRead");
+        int result = Integer.parseInt(productIdToBeRead);
+
+        return result;
+    }
+
+
+    public int getProductIdToBeModify() throws IOException, NumberFormatException
+    {
+        prop.load(configFile);
+        String productIdToModify = prop.getProperty("productIdToModify");
+        int result = Integer.parseInt(productIdToModify);
+
+        return result;
+    }
 }

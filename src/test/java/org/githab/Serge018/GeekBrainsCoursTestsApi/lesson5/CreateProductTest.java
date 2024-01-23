@@ -1,6 +1,7 @@
 package org.githab.Serge018.GeekBrainsCoursTestsApi.lesson5;
 
 import com.github.javafaker.Faker;
+import lombok.SneakyThrows;
 import org.githab.Serge018.GeekBrainsCoursTestsApi.lesson5.api.ProductService;
 import org.githab.Serge018.GeekBrainsCoursTestsApi.lesson5.dto.GetProductResponse;
 import org.githab.Serge018.GeekBrainsCoursTestsApi.lesson5.utils.RetrofitUtils;
@@ -8,7 +9,7 @@ import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.*;
 import retrofit2.Response;
 import static org.hamcrest.MatcherAssert.assertThat;
-
+import okhttp3.ResponseBody;
 
 import java.io.IOException;
 
@@ -42,8 +43,18 @@ public class CreateProductTest
     void createProductInFoodCategoryTest() throws IOException
     {
         Response<GetProductResponse> response = productService.createProduct(product).execute();
-        id =  response.body().getId();
+        // Сохраняем идентификатор продукта для его последующего удаления
+        id = response.body().getId();
 
+        assertThat(response.isSuccessful(), CoreMatchers.is(true));
+    }
+
+
+    @SneakyThrows
+    @AfterEach
+    void tearDown()
+    {
+        Response<ResponseBody> response = productService.deleteProduct(id).execute();
         assertThat(response.isSuccessful(), CoreMatchers.is(true));
     }
 

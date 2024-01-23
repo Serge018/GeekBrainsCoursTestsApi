@@ -20,13 +20,15 @@ public class RetrofitUtils
 
     public Retrofit getRetrofit() throws IOException
     {
-        // Настраиваем перехватчик для http клиента
+        // Ставим уровень логирования, чтобы логировались запросы и ответы
         logging.setLevel(BODY);
+        // Добавляем перехватчик в okhttp-клиент
         httpClient.addInterceptor(logging);
 
         Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(ConfigUtils.getBaseUrl())
             .addConverterFactory(JacksonConverterFactory.create())
+            // Добавляем okhttp-клиент к retrofit-клиенту
             .client(httpClient.build())
             .build();
 

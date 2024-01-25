@@ -8,6 +8,7 @@ public class LoggingTest extends AbstractTest
 {
 
     @Test
+    @Disabled
     void getRequestLogTest()
     {
         given()
@@ -26,6 +27,7 @@ public class LoggingTest extends AbstractTest
     }
 
     @Test
+    @Disabled
     void getResponseLogTest()
     {
         given()

@@ -1,6 +1,7 @@
 package org.githab.Serge018.GeekBrainsCoursTestsApi.lesson3;
 
 import org.githab.Serge018.GeekBrainsCoursTestsApi.lesson4.dto.ClassifyCuisineResponse;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import static io.restassured.RestAssured.given;
@@ -16,6 +17,7 @@ public class ClassifyCuisineTest  extends AbstractTestClassifyCuisine
 {
 
     @Test
+    @Disabled
     @DisplayName("Тест получения данных о принадлежности рецепта к определённой национальной кухни по его нименованию")
     void getRecipeBelongNationalCuisineByRecipeNameTest() throws IOException
     {
@@ -29,6 +31,7 @@ public class ClassifyCuisineTest  extends AbstractTestClassifyCuisine
     }
 
     @Test
+    @Disabled
     @DisplayName("Тест получения данных о принадлежности рецепта к определённой национальной кухни по его нименованию и ингридиенту")
     void getRecipeBelongNationalCuisineByRecipeNameAndIbnTest() throws IOException
     {

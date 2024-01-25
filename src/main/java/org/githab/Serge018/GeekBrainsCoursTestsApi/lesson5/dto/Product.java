@@ -12,7 +12,7 @@ import lombok.With;
 @With
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetProductResponse
+public class Product
 {
     @JsonProperty("id")
     private Integer id;

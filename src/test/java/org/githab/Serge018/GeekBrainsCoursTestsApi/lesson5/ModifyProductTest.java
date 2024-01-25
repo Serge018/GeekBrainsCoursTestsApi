@@ -32,6 +32,7 @@ public class ModifyProductTest
         productIdToBeModify = ConfigUtils.getProductIdToBeModify();
     }
 
+
     @BeforeEach
     void setUp()
     {

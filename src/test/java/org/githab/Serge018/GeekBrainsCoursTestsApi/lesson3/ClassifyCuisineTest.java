@@ -16,7 +16,7 @@ import static org.hamcrest.CoreMatchers.*;
 public class ClassifyCuisineTest  extends AbstractTestClassifyCuisine
 {
 
-    @Test
+    /*@Test
     @Disabled
     @DisplayName("Тест получения данных о принадлежности рецепта к определённой национальной кухни по его нименованию")
     void getRecipeBelongNationalCuisineByRecipeNameTest() throws IOException
@@ -49,5 +49,5 @@ public class ClassifyCuisineTest  extends AbstractTestClassifyCuisine
             .as(ClassifyCuisineResponse.class);
 
         assertThat(response.getCuisine(), containsString("Asian"));
-    }
+    }*/
 }

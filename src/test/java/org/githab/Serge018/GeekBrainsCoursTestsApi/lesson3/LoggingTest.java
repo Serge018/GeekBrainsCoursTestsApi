@@ -7,7 +7,7 @@ import static io.restassured.RestAssured.given;
 public class LoggingTest extends AbstractTest
 {
 
-    @Test
+    /*@Test
     @Disabled
     void getRequestLogTest()
     {
@@ -48,5 +48,5 @@ public class LoggingTest extends AbstractTest
                 .when()
                 .get("https://api.spoonacular.com/recipes/716429/information")
                 .then().statusCode(201);
-    }
+    }*/
 }

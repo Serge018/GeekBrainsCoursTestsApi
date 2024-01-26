@@ -1,4 +1,4 @@
-## Чек-лист тестов к проекту mini-market
+## Чек-лист тестов для проекта mini-market
 
 - GetCategoryTest;
   - getCategoryByIdPositiveTest() - проверка получения данных категории

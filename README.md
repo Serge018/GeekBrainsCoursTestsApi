@@ -1,14 +1,14 @@
 ## Чек-лист тестов к проекту mini-market
 
-1. GetCategoryTest
+- GetCategoryTest;
   - getCategoryByIdPositiveTest() - проверка получения данных категории
-2. GetProductTest
+- GetProductTest
   - getProducts() - проверка получения данных всех продуктов
   - getProductById() - проверка получения данных одного продукта по его идентификатору
-3. DeleteProductTest
+- DeleteProductTest
   - deleteProductById() - проверка удаления продукта по его идентификатору
-4. ModifyProductTest
+- ModifyProductTest
   - updateProductData() - проверка обновления данные продукта
-5. CreateProductTest
+- CreateProductTest
   - createProductInFoodCategoryTest() - проверка создания продукта
 

@@ -1,6 +1,9 @@
 package org.githab.Serge018.GeekBrainsCoursTestsApi.lesson5;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+
+import lombok.SneakyThrows;
+import org.apache.ibatis.session.SqlSession;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
 
@@ -12,17 +15,26 @@ import org.githab.Serge018.GeekBrainsCoursTestsApi.lesson5.utils.RetrofitUtils;
 import org.junit.jupiter.api.*;
 import retrofit2.Response;
 import java.io.IOException;
+import java.util.List;
 
 
-public class ModifyProductTest
+public class ModifyProductTest extends AbstractTestMiniMarket2
 {
+    private static SqlSession session;
+    db.dao.ProductsMapper productsMapper;
+    db.model.ProductsExample example;
     static ProductService productService;
     static int productIdToBeModify;
     static Faker faker = new Faker();
-    // Данные для обновления
     static String categoryTitle = "Electronic";
+    static long categoryId = 2;
+
+    // Поля данных для обновления продукта
     static String newTitle;
     static int newPrice;
+    // Поля для исходные данных продукта
+    static String oldTitle;
+    static int oldPrice;
 
 
     @BeforeAll
@@ -30,6 +42,7 @@ public class ModifyProductTest
     {
         productService = RetrofitUtils.getRetrofit().create(ProductService.class);
         productIdToBeModify = ConfigUtils.getProductIdToBeModify();
+        session = getSession();
     }
 
 
@@ -39,6 +52,15 @@ public class ModifyProductTest
         // Данные для обновления
         newTitle = faker.commerce().productName();
         newPrice = (int) (Math.random() * 100000000);
+
+        // Производим обращение к БД, сохраняем параметры продукта до его обновления
+        productsMapper = session.getMapper(db.dao.ProductsMapper.class);
+        example = new db.model.ProductsExample();
+        example.createCriteria().andIdEqualTo((long) productIdToBeModify);
+        List<db.model.Products> list = productsMapper.selectByExample(example);
+        db.model.Products product = list.get(0);
+        oldTitle = product.getTitle();
+        oldPrice = product.getPrice();
     }
 
 
@@ -53,10 +75,33 @@ public class ModifyProductTest
                 .withPrice(newPrice);
 
         Response<Product> response = productService.modifyProduct(productToBeModify).execute();
-        Product body = response.body();
-
         assertThat(response.isSuccessful(), CoreMatchers.is(true));
-        assertThat(body.getTitle(), Matchers.equalTo(newTitle));
-        assertThat(body.getPrice(), Matchers.equalTo(newPrice));
+
+        db.dao.ProductsMapper productsMapper;
+        db.model.ProductsExample example;
+
+        productsMapper = session.getMapper(db.dao.ProductsMapper.class);
+        example = new db.model.ProductsExample();
+        example.createCriteria().andIdEqualTo((long) productIdToBeModify);
+        List<db.model.Products> list = productsMapper.selectByExample(example);
+        db.model.Products product = list.get(0);
+
+        assertThat(product.getTitle(), Matchers.equalTo(newTitle));
+        assertThat(product.getPrice(), Matchers.equalTo(newPrice));
+    }
+
+
+    @SneakyThrows
+    @AfterEach
+    void tearDown()
+    {
+        // Возвращаем продукту изначальные параметры
+        db.model.Products product = new db.model.Products();
+        product.setId((long) productIdToBeModify);
+        product.setTitle(oldTitle);
+        product.setCategory_id(categoryId);
+        product.setPrice(oldPrice);
+        productsMapper.updateByPrimaryKey(product);
+        session.commit();
     }
 }

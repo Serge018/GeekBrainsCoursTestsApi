@@ -10,10 +10,9 @@ import org.junit.jupiter.api.*;
 import retrofit2.Response;
 import static org.hamcrest.MatcherAssert.assertThat;
 import okhttp3.ResponseBody;
-
 import java.io.IOException;
 
-// TODO вынести теств CRUD в разные тестовые классы
+
 public class CreateProductTest
 {
     static ProductService productService;
@@ -33,9 +32,9 @@ public class CreateProductTest
     void setUp()
     {
         product = new Product()
-                .withTitle(faker.food().ingredient())
-                .withCategoryTitle("Food")
-                .withPrice((int) (Math.random() * 10000));
+            .withTitle(faker.food().ingredient())
+            .withCategoryTitle("Food")
+            .withPrice((int) (Math.random() * 10000));
     }
 
 

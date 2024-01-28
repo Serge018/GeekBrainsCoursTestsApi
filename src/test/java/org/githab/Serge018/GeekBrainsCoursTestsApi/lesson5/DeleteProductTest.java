@@ -42,7 +42,7 @@ public class DeleteProductTest extends AbstractTestMiniMarket2
         db.model.ProductsExample example = new db.model.ProductsExample();
         example.createCriteria().andIdEqualTo((long) productIdToBeDeleted);
 
-        // Проверка, что в БД отстутствует элемент с идентификатором удалённого
+        // Проверка, что в БД отстутствует продукт с идентификатором удалённого
         List<db.model.Products> list = productsMapper.selectByExample(example);
         assertThat(list.size(), CoreMatchers.is(0));
     }

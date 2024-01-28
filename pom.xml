@@ -170,15 +170,15 @@
           <groupId>org.mybatis.generator</groupId>
           <artifactId>mybatis-generator-maven-plugin</artifactId>
           <version>1.4.0</version>
-          <executions>
+          <!-- Закоментировано для откючения автогенерации вспомогательных классов при запуске тестов -->
+          <!--<executions>
             <execution>
               <id>Generate MyBatis Artifacts</id>
               <goals>
-                <!--                            disabled generation mybatis db provider-->
                 <goal>generate</goal>
               </goals>
             </execution>
-          </executions>
+          </executions>-->
         </plugin>
       </plugins>
     <!--</pluginManagement>-->
